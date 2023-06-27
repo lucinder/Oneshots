@@ -4,7 +4,7 @@
         <script>
             function convert(){
                 let text = document.getElementById("ToConvert").value.split("\n");
-                let out = "{<br>";
+                let out = "[<br>";
                 for(let i = 0; i < text.length; i++){
                     out += text[i];
                     if(i != text.length-1){
@@ -12,7 +12,7 @@
                     }
                     out += "<br>";
                 }
-                out += "}";
+                out += "]";
                 document.getElementById("output").innerHTML = out;
             }
         </script>
