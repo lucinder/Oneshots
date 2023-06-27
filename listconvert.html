@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function convert(){
+                let text = document.getElementById("ToConvert").value.split("\n");
+                let out = "{<br>";
+                for(let i = 0; i < text.length; i++){
+                    out += text[i];
+                    if(i != text.length-1){
+                    out += ",";
+                    }
+                    out += "<br>";
+                }
+                out += "}";
+                document.getElementById("output").innerHTML = out;
+            }
+        </script>
+    </head>
+    <body>
+            <textarea type="text" id="ToConvert" placeholder="Enter unformatted list here"></textarea>
+                <br><br>
+        <button id="ToConvert" onclick="convert()">Convert</button>
+          <p id="output"></p>
+    </body>
+</html>
