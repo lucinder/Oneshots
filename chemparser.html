@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+    <h1>Chemical Formula Parser</h1>
+    <label for="input">Enter your chemical equation here:</label>
+    <br>
+    <input type="text" id="input">
+    <br>
+    <input type="Submit" value="Submit" id="submit">
+    <p id="output"></p>
+    <script type="text/javascript">
+        function getAmounts(input){
+            let multistack = []; // multiplier stack
+            let elements = {}; // hold element objects with count
+            // input splitting:
+            // () splits on parenthesis
+            // 1-9 splits on digits
+            // A-Z splits on capitals (the starts of elements)
+            let tokens = input.split(/(?=[A-Z1-9()])/);
+            while (tokens.length > 0){ // pop until we can't pop anymore
+                next = tokens.pop();
+                if (!isNaN(next)){ // next is a num
+                    multistack.push(parseInt(next));
+                } else if (next == ")"){ // next is )
+                    multistack.push(0);
+                } else if (next == "("){ // next is (
+                    multistack.pop() // pop parenthesis indicator
+                    if((multistack.length>0) && (multistack[multistack.length-1] != 0)){
+                        multistack.pop(); // pop any additional multipliers applied to parenthesis
+                    }
+                } else {
+                    count = 1
+                    multistack.forEach((el,i,arr)=>{
+                        if (el != 0){ // ignore parenthesis indicator
+                            count *= el;
+                        }
+                    });
+                    if (next in elements){ // increment our count if we're a duplicate, otherwise add our count as a new element
+                        elements[next] += count;
+                    } else {
+                        elements[next] = count;
+                    }
+                    if ((multistack.length>0) && (multistack[multistack.length-1] != 0)){ // pop our most recent multiplier
+                        multistack.pop();
+                    }
+                }
+            }
+            return elements;
+        }
+
+        document.getElementById("submit").addEventListener("click", parseSubmit);
+
+        function parseSubmit(){
+        let input = document.getElementById("input").value;
+        let output = getAmounts(input);
+        document.getElementById("output").innerHTML = JSON.stringify(output);
+        }
+    </script>
+</body>
+</html>
