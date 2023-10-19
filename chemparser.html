@@ -11,16 +11,23 @@
     <input type="Submit" value="Submit" id="submit">
     <p id="output"></p>
     <script type="text/javascript">
-        function getAmounts(input){
+        function getAmounts(input,dbg){
+            let out = ""
             let multistack = []; // multiplier stack
             let elements = {}; // hold element objects with count
             // input splitting:
             // () splits on parenthesis
             // 1-9 splits on digits
             // A-Z splits on capitals (the starts of elements)
-            let tokens = input.split(/(?=[A-Z1-9()])/);
+            let tokens = input.split(/([A-Za-z]+|\d+|\(|\))/).filter(Boolean);
+            if (dbg){
+                out += JSON.stringify(tokens) + "<br>";
+            }
             while (tokens.length > 0){ // pop until we can't pop anymore
                 next = tokens.pop();
+                if(dbg){
+                    out += "Reading " + next + "<br>";
+                }
                 if (!isNaN(next)){ // next is a num
                     multistack.push(parseInt(next));
                 } else if (next == ")"){ // next is )
@@ -47,15 +54,15 @@
                     }
                 }
             }
-            return elements;
+            out += JSON.stringify(elements);
+            return out;
         }
 
         document.getElementById("submit").addEventListener("click", parseSubmit);
 
         function parseSubmit(){
-        let input = document.getElementById("input").value;
-        let output = getAmounts(input);
-        document.getElementById("output").innerHTML = JSON.stringify(output);
+            let input = document.getElementById("input").value;
+            document.getElementById("output").innerHTML = getAmounts(input, false);
         }
     </script>
 </body>
