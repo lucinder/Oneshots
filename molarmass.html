@@ -53,7 +53,7 @@
             let elements = {}; // hold element objects with count
             let tokens = input.split(/(?=[A-Z]|\d+|\(|\))/).filter(Boolean);
             while (tokens.length > 0){ // pop until we can't pop anymore
-                next = tokens.pop();
+                let next = tokens.pop();
                 if (!isNaN(next)){ // next is a num
                     multistack.push(parseInt(next));
                 } else if (next == ")"){ // next is )
