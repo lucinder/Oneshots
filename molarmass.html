@@ -30,7 +30,7 @@
         }
     </style>
 </head>
-<body onload="loadJSON()">
+<body>
     <!-- <h1>Chemical Formula Parser</h1> -->
     <!-- <label for="input">Enter your chemical equation here:</label> -->
     <br>
@@ -45,6 +45,9 @@
             masses = await response.json();
             console.log("JSON loaded successfully!");
         }
+        window.addEventListener("load", (event) => {
+            loadJSON();
+        });
         function getAmounts(input){
             let multistack = []; // multiplier stack
             let elements = {}; // hold element objects with count
