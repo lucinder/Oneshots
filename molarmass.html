@@ -39,7 +39,15 @@
     <input type="Submit" value="Get my molar mass!" id="submit">
     <p id="output"></p>
     <script type="module">
-        import * as data from './element_masses.json';
+        let masses;
+        fetch('element_masses.json')
+            .then(response => response.json())
+            .then(data => {
+                masses = data;
+            })
+            .catch(error => {
+                console.error('Error loading JSON:', error);
+            });
         function getAmounts(input){
             let multistack = []; // multiplier stack
             let elements = {}; // hold element objects with count
