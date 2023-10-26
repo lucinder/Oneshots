@@ -64,7 +64,7 @@
                         multistack.pop(); // pop any additional multipliers applied to parenthesis
                     }
                 } else {
-                    count = 1
+                    let count = 1
                     multistack.forEach((el,i,arr)=>{
                         if (el != 0){ // ignore parenthesis indicator
                             count *= el;
