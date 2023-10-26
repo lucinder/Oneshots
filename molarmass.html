@@ -40,14 +40,10 @@
     <p id="output"></p>
     <script type="module">
         let masses;
-        fetch('element_masses.json')
-            .then(response => response.json())
-            .then(data => {
-                masses = data;
-            })
-            .catch(error => {
-                console.error('Error loading JSON:', error);
-            });
+        async function loadJSON(){
+            const response = await fetch('element_masses.json');
+            masses = await response.json();
+        }
         function getAmounts(input){
             let multistack = []; // multiplier stack
             let elements = {}; // hold element objects with count
