@@ -9,7 +9,7 @@
         html{
             display:table;
             margin:auto;
-            background-color: #307050;
+            background-color: #3e996b;
         }
         body{
             display:table-cell;
@@ -25,12 +25,13 @@
             height:100px;
             margin-bottom:50px;
             padding:10px;
+            color:#307050;
         }
         #submit{
             width:200px;
             height:50px;
             font-size:20px;
-            background-color: #74bc98;
+            background-color: #8aceac;
             color:#307050;
         }
         #output{
@@ -108,8 +109,12 @@
 
         function parseSubmit(){
             let input = document.getElementById("input").value;
-            let els = getAmounts(input, false);
-            document.getElementById("output").innerHTML = getMass(els) + " g/mol";
+            let mass = getMass(getAmounts(input, false));
+            if(mass != "NaN"){
+                document.getElementById("output").innerHTML = getMass(els) + " g/mol";
+            } else {
+                document.getElementById("output").innerHTML = "ERROR: Invalid formula!";
+            }
         }
     </script>
 </body>
