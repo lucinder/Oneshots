@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+    <title>Molar Mass Calculator</title>
     <style>
         html, body{
             height:100%;
@@ -80,17 +81,20 @@
                     }
                 }
             }
+            console.log("Elements list: " + JSON.stringify(elements));
             return elements;
         }
 
         function getMass(elements){
             let sum = 0;
             for(const [key, value] of Object.entries(elements)){
+                console.log("KV Pair: " + key + ", " + value);
                 let mass = elements.key;
                 sum += value*mass;
             }
             return sum;
         }
+
         document.getElementById("submit").addEventListener("click", parseSubmit);
 
         function parseSubmit(){
