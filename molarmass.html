@@ -110,7 +110,7 @@
         function parseSubmit(){
             let input = document.getElementById("input").value;
             let mass = getMass(getAmounts(input, false));
-            if(mass != "NaN"){
+            if(!isNaN(mass)){
                 document.getElementById("output").innerHTML = mass + " g/mol";
             } else {
                 document.getElementById("output").innerHTML = "ERROR: Invalid formula!";
