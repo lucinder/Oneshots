@@ -88,8 +88,9 @@
         function getMass(elements){
             let sum = 0;
             for(const [key, value] of Object.entries(elements)){
-                console.log("KV Pair: " + key + ", " + value);
+                // console.log("KV Pair: " + key + ", " + value);
                 let mass = elements.key;
+                console.log("Mass: " + mass);
                 sum += value*mass;
             }
             return sum;
