@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        html, body{
+            height:100%;
+        }
+        html{
+            display:table;
+            margin:auto;
+        }
+        body{
+            display:table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        #input, #output{
+            font-size:32px;
+        }
+        #input{
+            width:600px;
+            height:100px;
+            margin-bottom:50px;
+            padding:10px;
+        }
+        #submit{
+            width:200px;
+            height:50px;
+            font-size:20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1>Chemical Formula Parser</h1> -->
+    <!-- <label for="input">Enter your chemical equation here:</label> -->
+    <br>
+    <input type="text" id="input" placeholder="Your formula here">
+    <br>
+    <input type="Submit" value="Get my molar mass!" id="submit">
+    <p id="output"></p>
+    <script type="module">
+        import * as data from './element_masses.json';
+        function getAmounts(input){
+            let multistack = []; // multiplier stack
+            let elements = {}; // hold element objects with count
+            let tokens = input.split(/(?=[A-Z]|\d+|\(|\))/).filter(Boolean);
+            while (tokens.length > 0){ // pop until we can't pop anymore
+                next = tokens.pop();
+                if (!isNaN(next)){ // next is a num
+                    multistack.push(parseInt(next));
+                } else if (next == ")"){ // next is )
+                    multistack.push(0);
+                } else if (next == "("){ // next is (
+                    multistack.pop() // pop parenthesis indicator
+                    if((multistack.length>0) && (multistack[multistack.length-1] != 0)){
+                        multistack.pop(); // pop any additional multipliers applied to parenthesis
+                    }
+                } else {
+                    count = 1
+                    multistack.forEach((el,i,arr)=>{
+                        if (el != 0){ // ignore parenthesis indicator
+                            count *= el;
+                        }
+                    });
+                    if (next in elements){ // increment our count if we're a duplicate, otherwise add our count as a new element
+                        elements[next] += count;
+                    } else {
+                        elements[next] = count;
+                    }
+                    if ((multistack.length>0) && (multistack[multistack.length-1] != 0)){ // pop our most recent multiplier
+                        multistack.pop();
+                    }
+                }
+            }
+            return elements;
+        }
+
+        function getMass(elements){
+            sum = 0;
+            for(const [key, value] of Object.entries(elements)){
+                let {key} = data;
+                sum += value*(key);
+            }
+            return sum;
+        }
+        document.getElementById("submit").addEventListener("click", parseSubmit);
+
+        function parseSubmit(){
+            let input = document.getElementById("input").value;
+            els = getAmounts(input, false);
+            document.getElementById("output").innerHTML = getMass(els);
+        }
+    </script>
+</body>
+</html>
