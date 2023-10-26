@@ -111,7 +111,7 @@
             let input = document.getElementById("input").value;
             let mass = getMass(getAmounts(input, false));
             if(mass != "NaN"){
-                document.getElementById("output").innerHTML = getMass(els) + " g/mol";
+                document.getElementById("output").innerHTML = mass + " g/mol";
             } else {
                 document.getElementById("output").innerHTML = "ERROR: Invalid formula!";
             }
