@@ -19,7 +19,7 @@
             // () splits on parenthesis
             // 1-9 splits on digits
             // A-Z splits on capitals (the starts of elements)
-            let tokens = input.split(/([A-Z][a-z]+|\d+|\(|\))/).filter(Boolean);
+            let tokens = input.split(/([A-Z]{1}[a-z]+|\d+|\(|\))/).filter(Boolean);
             if (dbg){
                 out += JSON.stringify(tokens) + "<br>";
             }
