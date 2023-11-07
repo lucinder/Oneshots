@@ -4,7 +4,7 @@
         <script>
             function generate(){
                 let l = parseInt(document.getElementById("llen").value);
-                let f = parseInt(document.getElementById("lfill").value);
+                let f = document.getElementById("lfill").value;
                 let arr = [];
                 for(let i = 0; i < l; i++){
                     arr.push(f);
@@ -24,8 +24,9 @@
     </head>
     <body>
         <label for="llen">Array length:</label>
-        <label for="lfill">What to fill array with:</label>
         <input type="text" id="llen">
+        <br>
+        <label for="lfill">What to fill array with:</label>
         <input type="text" id="lfill">
         <br><br>
         <button id="gen" onclick="generate()">Generate Array</button>
