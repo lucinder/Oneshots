@@ -9,7 +9,7 @@
         html{
             display:table;
             margin:auto;
-            background-color: #995e3e;
+            background-color: #ab5f35;
         }
         body{
             display:table-cell;
@@ -18,7 +18,7 @@
             font-family: Helvetica, sans-serif;
         }
         #input, #output{
-            font-size:32px;
+            font-size:30px;
         }
         #input{
             width:600px;
@@ -94,6 +94,15 @@
             return elements;
         }
 
+        function getProtonCount(elements){
+            let sum = 0;
+            for(const [key, value] of Object.entries(elements)){
+                let p = masses[key]["z"];
+                sum += value*p;
+            }
+            return sum;
+        }
+
         function getMeanMass(elements){
             let sum = 0;
             for(const [key, value] of Object.entries(elements)){
@@ -117,10 +126,12 @@
         function parseSubmit(){
             let input = document.getElementById("input").value;
             let amounts = getAmounts(input, false);
+            let pCount = getProtonCount(amounts);
             let meanMass = getMeanMass(amounts);
             let medianMass = getMedianMass(amounts);
+            let nCount = medianMass-pCount;
             if(!isNaN(meanMass)){
-                document.getElementById("output").innerHTML = "Mean mass: " + meanMass + " g/mol<br>Median mass: " + medianMass + " g/mol";
+                document.getElementById("output").innerHTML = "<b>Proton Count:</b> "+pCount+"<br><b>Median Neutron Count:</b> "+nCount+"<br><b>Mean mass:</b> " + meanMass + " g/mol<br><b>Median mass:</b> " + medianMass + " g/mol";
             } else {
                 document.getElementById("output").innerHTML = "ERROR: Invalid formula!";
             }
