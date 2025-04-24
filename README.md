@@ -8,3 +8,4 @@ Currently includes:
 - Fill a fixed-length array with duplicates of a given item.
 - Parse a chemical formula into a dict of elements with their counts.
 - Get the molar mass of a chemical formula.
+- Build and save custom formula calculators
