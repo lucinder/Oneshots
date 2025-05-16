@@ -9,3 +9,4 @@ Currently includes:
 - Parse a chemical formula into a dict of elements with their counts.
 - Get the molar mass of a chemical formula.
 - Build and save custom formula calculators
+- A Wordle-like where you guess from popular (leaked) passwords
